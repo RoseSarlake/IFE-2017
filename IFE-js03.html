@@ -34,12 +34,17 @@
  * 读取id为source的列表，获取其中城市名字及城市对应的空气质量
  * 返回一个数组，格式见函数中示例
  */
-function getData() {
-	var nodelist = document.getElementsByTagName("li");\
-	return Array.prototype.slice.call(nodelist,0);
-	console.log()
-	var list =
-
+function getData() {	 
+        const ul = document.getElementById("source");
+        var data=[];
+        var nodelist = ul.querySelectorAll("li");
+        for(var i=0;i<nodelist.length;i++){
+            var arr=[];
+            arr[0] = nodelist[i].firstChild.data.substring(0,2); //（起始位置，获取长度）  
+			//第一个子节点是文本节点，可以通过data属性或者nodeValue访问节点的内容，此处获取前两字
+            arr[1] = nodelist[i].lastChild.innerHTML;    //<b>为第二个子节点
+            data.push(arr);
+	}
   /*
   data = [
     ["北京", 90],
@@ -47,7 +52,6 @@ function getData() {
     ……
   ]
   */
-
   return data;
 
 }
@@ -58,7 +62,7 @@ function getData() {
  * 返回一个排序后的数组
  */
 function sortAqiData(data) {
-	 data.sort((prev,next)=>{
+	 return data.sort((prev,next)=>{
 		if(prev>=next){
 			return -1;
 		}else{return 1;}
@@ -71,7 +75,7 @@ function sortAqiData(data) {
  * 格式见ul中的注释的部分
  */
 function render(data) {
-	var list=document.getElementById("resort");
+	const list=document.getElementById("resort");
 	data.forEach((item, index) => {
     var li = document.createElement('li');
     li.innerHTML = `第${index + 1}名：${item[0]}，${item[1]}`;
@@ -87,9 +91,9 @@ function btnHandle() {
 
 function init() {
   // 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数
-	btnHandle();
+	var btn = document.querySelector("#sort-btn");
+	btn.onclick = btnHandle();
 }
-init();
 
 </script>
 </body>
