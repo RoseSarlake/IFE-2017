@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>IFE-js04</title>
+<style>
+	#list li{
+		display: inline-block;
+		height: 30px;
+		width: 30px;
+		background: #1DF4D6;
+		padding: 10px;
+		margin: 10px;
+	}
+</style>
+</head>
+<!--
+任务描述
+
+    如图，模拟一个队列，队列的每个元素是一个数字，初始队列为空
+    有一个input输入框，以及4个操作按钮
+        点击"左侧入"，将input中输入的数字从左侧插入队列中；
+        点击"右侧入"，将input中输入的数字从右侧插入队列中；
+        点击"左侧出"，读取并删除队列左侧第一个元素，并弹窗显示元素中数值；
+        点击"右侧出"，读取并删除队列又侧第一个元素，并弹窗显示元素中数值；
+    点击队列中任何一个元素，则该元素会被从队列中删除
+-->
+
+<body>
+<input type="text" id="input">
+<input type="button" value="左侧入" id="leftin">
+<input type="button" value="右侧入" id="rightin">
+<input type="button" value="左侧出" id="leftout">
+<input type="button" value="右侧出" id="rightout">
+<div class="block">
+	<ul id="list">
+		
+	</ul>
+</div>
+<script type="text/javascript">
+	 window.onload = function() {
+            var input = document.getElementById('input');
+            var arr = [];
+            var leftin = document.getElementById("leftin");
+            var rightin = document.getElementById("rightin");
+            var leftout = document.getElementById("leftout");
+            var rightout = document.getElementById("rightout");
+
+            var list = document.getElementById('list');
+
+            input.addEventListener('keyup', () => {
+                if (/\D/g.test(input.value)) {
+                    alert('只能输入数字');
+                    input.value = '';
+                }
+            })
+			function show(){
+				list.innerHTML='';
+				arr.forEach((item) => {
+                   if (item==='') {
+                        return;
+                    }
+				var listblock=document.createElement("li");
+				listblock.innerHTML=item;
+				list.appendChild(listblock);
+				   })			
+			}
+		 leftin.addEventListener("click",()=>{
+			 arr.unshift(input.value);
+			 show(); 
+		 })
+		 leftout.addEventListener("click",()=>{
+			 arr.shift(input.value);
+			 show(); 
+		 })
+		 rightin.addEventListener("click",()=>{
+			 arr.push(input.value);
+			 show(); 
+		 })
+		 rightout.addEventListener("click",()=>{
+			 arr.pop(input.value);
+			 show(); 
+		 })
+	 }
+</script>
+</body>
+</html>
